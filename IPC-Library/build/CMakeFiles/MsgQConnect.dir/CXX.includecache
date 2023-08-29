@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/include/MsgQConnect.hpp
+iostream
+-
+mqueue.h
+-
+cstdlib
+-
+cstring
+-
+thread
+-
+chrono
+-
+
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/src/MsgQConnect.cpp
+../include/MsgQConnect.hpp
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/include/MsgQConnect.hpp
+

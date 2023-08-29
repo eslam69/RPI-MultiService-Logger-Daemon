@@ -1,0 +1,7 @@
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/install/strip.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/install/local.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/edit_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/install.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/list_install_components.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/rebuild_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/CMakeFiles/MsgQConnect.dir
