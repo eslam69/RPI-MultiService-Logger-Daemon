@@ -6,12 +6,14 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 # Set the compiler to /home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++
-set(CMAKE_CXX_COMPILER "/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++")
+# set(CMAKE_CXX_COMPILER "/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++")
 # or use : cmake -DCMAKE_CXX_COMPILER=path-to/aarch64-rpi4-linux-gnu-g++ ..
 
 
 # Add the MsgQConnect library
-add_library(MsgQConnect SHARED src/MsgQConnect.cpp)
+# add_library(MsgQConnect SHARED src/MsgQConnect.cpp)
+
+add_library(MsgQConnect STATIC src/MsgQConnect.cpp)
 
 # Link the MsgQConnect library with the pthread and real-time libraries
 target_link_libraries(MsgQConnect pthread rt)
@@ -19,7 +21,8 @@ target_link_libraries(MsgQConnect pthread rt)
 # Install the MsgQConnect library to /usr/local/lib
 install(TARGETS MsgQConnect DESTINATION /usr/local/lib)
 
-
+#add headers to the system
+target_include_directories(MsgQConnect PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #usage
 # mkdir build

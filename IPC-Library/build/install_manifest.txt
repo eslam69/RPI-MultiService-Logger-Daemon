@@ -1,1 +1,1 @@
-/usr/local/lib/libMsgQConnect.so
+/usr/local/lib/libMsgQConnect.a

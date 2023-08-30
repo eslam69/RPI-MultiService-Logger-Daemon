@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MsgQConnect.dir/src/MsgQConnect.cpp.o"
+  "libMsgQConnect.a"
   "libMsgQConnect.pdb"
-  "libMsgQConnect.so"
 )
 
 # Per-language clean rules from dependency scanning.

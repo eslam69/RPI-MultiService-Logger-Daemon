@@ -1,4 +1,6 @@
 #include "../include/MsgQConnect.hpp"
+// #include "MsgQConnect.hpp"
+
 //uses pthread and rt libs
 
 MessageQueueReceiver::MessageQueueReceiver(std::string message_queue_name, int max_messages, int max_message_size)

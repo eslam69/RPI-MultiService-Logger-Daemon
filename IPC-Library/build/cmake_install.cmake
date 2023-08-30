@@ -38,30 +38,15 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so"
-         RPATH "")
-  endif()
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/usr/local/lib/libMsgQConnect.so")
+   "/usr/local/lib/libMsgQConnect.a")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/usr/local/lib" TYPE SHARED_LIBRARY FILES "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/libMsgQConnect.so")
-  if(EXISTS "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/usr/local/lib/libMsgQConnect.so")
-    endif()
-  endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+file(INSTALL DESTINATION "/usr/local/lib" TYPE STATIC_LIBRARY FILES "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/build/libMsgQConnect.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
