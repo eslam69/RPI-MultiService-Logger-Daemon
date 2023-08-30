@@ -2,5 +2,7 @@
 
 #comment
 
-math =  /math_shared_q
-ipc  =    /ipc_shared_q 
+testSend =  /my_queue
+testSend2 =  /my_queue2
+
+#ipc  =    /ipc_shared_q 
