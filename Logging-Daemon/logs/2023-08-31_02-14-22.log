@@ -1,0 +1,11 @@
+[info   ] [0012] [mathApp        ] [2023-08-31 02:14:22.367]  Inputs: 1 + 9
+[info   ] [0013] [mathApp        ] [2023-08-31 02:14:22.367]  Addition operation
+[info   ] [0014] [mathApp        ] [2023-08-31 02:14:22.367]  Operation: 1 + 9 = 10.000000
+[info   ] [0015] [mathApp        ] [2023-08-31 02:14:22.367]  App terminated Successfully!
+[info   ] [0016] [mathApp        ] [2023-08-31 02:14:48.805]  App started, Connected to the logger!
+[info   ] [0017] [mathApp        ] [2023-08-31 02:14:48.806]  Inputs: 1 + 9
+[info   ] [0018] [mathApp        ] [2023-08-31 02:14:48.806]  Addition operation
+[info   ] [0019] [mathApp        ] [2023-08-31 02:14:48.806]  Operation: 1 + 9 = 10.000000
+[info   ] [0020] [mathApp        ] [2023-08-31 02:14:48.807]  App terminated Successfully!
+[info   ] [0021] [mathApp        ] [2023-08-31 02:19:02.706]  App started, Connected to the logger!
+[info   ] [0022] [mathApp        ] [2023-08-31 02:19:02.706]  Inputs: 1 + 9

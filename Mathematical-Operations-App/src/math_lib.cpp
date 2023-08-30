@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     MessageQueueSender logClientsender("/math_queue");
     // printf("N args: %d\n", argc);
     // log app started
-    logClientsender.send_message("Info | App started, Connected to the logger");
+    logClientsender.send_message("Info | App started, Connected to the logger!");
 
     // define --help arg
     // ops are  + - * /
@@ -36,12 +36,12 @@ int main(int argc, char *argv[])
     {
         logClientsender.send_message("Info | User requested help");
         printf("Usage: %s arg1 op arg2\n", argv[0]);
-        printf("arg1: integer number\n");
-        printf("arg2: integer number\n");
-        printf("op: +, -, *, s\n");
+        printf("arg1: float number\n");
+        printf("arg2: float number\n");
+        printf("op: +, -, x, s\n");
         printf("+: addition\n");
         printf("-: subtraction\n");
-        printf("*: multiplication\n");
+        printf("x: multiplication\n");
         printf("/: division\n");
 
         return 0;
@@ -69,10 +69,10 @@ int main(int argc, char *argv[])
     char op = argv[2][0];
     std::string operand = std::string(1, op);
     // send inputs to the logger
-    logClientsender.send_message((std::string("Info | Inputs: ") + std::to_string(arg1) + std::string(" ") + operand + std::string(" ") + std::to_string(arg2)).c_str());
-    logClientsender.send_message((std::string("Info | Inputs: ") + std::to_string(arg1) + std::string(" ") + operand + std::string(" ") + std::to_string(arg2) );
+    // logClientsender.send_message((std::string("Info | Inputs: ") + std::to_string(arg1) + std::string(" ") + operand + std::string(" ") + std::to_string(arg2)).c_str());
+    logClientsender.send_message((std::string("Info | Inputs: ") + std::string(argv[1]) + std::string(" ") + operand + std::string(" ") + std::string(argv[3])).c_str());
 
-    if (op != '+' && op != '-' && op != '*' && op != '/')
+    if (op != '+' && op != '-' && op != 'x' && op != '/')
     {
         logClientsender.send_message((std::string("Error | Invalid operation: ") + std::to_string(op)).c_str());
         printf("Invalid operation\n");
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
         logClientsender.send_message("Info | Subtraction operation");
         result = arg1 - arg2;
         break;
-    case '*':
+    case 'x':
         logClientsender.send_message("Info | Multiplication operation");
         result = arg1 * arg2;
         break;
@@ -117,9 +117,8 @@ int main(int argc, char *argv[])
         return 1;
     }
     // log the total operation arg1 op arg2 = result
-    logClientsender.send_message((std::string("Info | Operation: ") + std::to_string(arg1) + std::string(" ") + operand + std::string(" ") + std::to_string(arg2) + std::string(" = ") + std::to_string(result)).c_str());
-    std::cout << (std::string("Info | Operation: ") + std::to_string(arg1) + std::string(" ") + operand + std::string(" ") + std::to_string(arg2) + std::string(" = ") + std::to_string(result)).c_str() << std::endl;
-    printf("Result: %.2f \n", result);
+    logClientsender.send_message((std::string("Info | Operation: ") + std::string(argv[1]) + std::string(" ") + operand + std::string(" ") + std::string(argv[3]) + std::string(" = ") + std::to_string(result)).c_str());
+    std::cout << (std::string("Info | Result: ") + std::string(argv[1]) + std::string(" ") + operand + std::string(" ") + std::string(argv[3]) + std::string(" = ") + std::to_string(result)).c_str() << std::endl;
     // log app termination
     logClientsender.send_message("Info | App terminated Successfully!");
     return 0;

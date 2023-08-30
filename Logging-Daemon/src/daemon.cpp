@@ -26,6 +26,9 @@
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/lock_guard.hpp>
 
+#include <arpa/inet.h>
+#include <sys/socket.h>
+
 #include "../../IPC-Library/include/MsgQConnect.hpp"
 
 #define MAX_FILE_LINES 1000
@@ -61,6 +64,55 @@ void parse_message(std::string received_message, SeverityLevel &severityLevel, s
 
 static std::atomic<int> log_counter(1);
 
+class Client
+{
+public:
+    Client(const char *serverAddress, int port) : serverAddress(serverAddress), port(port), clientSocket(-1) {}
+
+    bool connectToServer()
+    {
+        clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+        if (clientSocket == -1)
+        {
+            std::cerr << "Error creating socket" << std::endl;
+            return false;
+        }
+
+        struct sockaddr_in serverAddr;
+        serverAddr.sin_family = AF_INET;
+        serverAddr.sin_port = htons(port);
+        serverAddr.sin_addr.s_addr = inet_addr(serverAddress);
+
+        if (connect(clientSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1)
+        {
+            std::cerr << "Error connecting" << std::endl;
+            return false;
+        }
+        return true;
+    }
+
+    bool sendData(const char *data)
+    {
+        ssize_t bytesSent = send(clientSocket, data, strlen(data), 0);
+        if (bytesSent == -1)
+        {
+            std::cerr << "Error sending data" << std::endl;
+            return false;
+        }
+        return true;
+    }
+
+    void closeConnection()
+    {
+        close(clientSocket);
+    }
+
+private:
+    const char *serverAddress;
+    int port;
+    int clientSocket;
+};
+
 // function to return the current time as a string
 inline std::string get_timestamp()
 {
@@ -94,7 +146,7 @@ void init_logging()
     boost::shared_ptr<file_backend_t> file_backend = boost::make_shared<file_backend_t>(
         keywords::file_name = "../logs/%Y-%m-%d_%H-%M-%S.log",
         // keywords::rotation_size = 10,  // Rotation based on line count, not file size
-        keywords::rotation_size = 10 * 1024 * 1024,
+        keywords::rotation_size = 1024,
         keywords::auto_flush = true);
     boost::shared_ptr<sink_t> file_sink = boost::make_shared<sink_t>(file_backend);
 
@@ -115,7 +167,8 @@ void parseConfigFile(const std::string &filename, std::map<std::string, std::str
     std::ifstream configFile(filename);
     if (!configFile.is_open())
     {
-        std::cerr << "Error opening configuration file." << std::endl;
+        std::cerr << "Error opening configuration file." << "can't find file in "<< filename<<std::endl;
+        exit(1);
         return;
     }
 
@@ -148,10 +201,55 @@ void printConfigMap(const std::map<std::string, std::string> &configMap)
         std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
     }
 }
+void send_log_to_server(std::string message)
+{
+    Client client("127.0.0.1", 12345);
+    if (!client.connectToServer())
+    {
+        // exit(1);
+        return ;
+    }
+
+    if (client.sendData(message.c_str()))
+    {
+        std::cout << "Socket Sent: " << message << std::endl;
+    }
+    client.closeConnection();
+}
+// prpend severity like [info] message
+std::string prepend_severity(const std::string &message, SeverityLevel severity)
+{
+    std::string new_message;
+    switch (severity)
+    {
+    case SeverityLevel::trace:
+        new_message = "[trace] " + message;
+        break;
+    case SeverityLevel::debug:
+        new_message = "[debug] " + message;
+        break;
+    case SeverityLevel::info:
+        new_message = "[info] " + message;
+        break;
+    case SeverityLevel::warning:
+        new_message = "[warning] " + message;
+        break;
+    case SeverityLevel::error:
+        new_message = "[error] " + message;
+        break;
+    case SeverityLevel::fatal:
+        new_message = "[fatal] " + message;
+        break;
+    default:
+        new_message = "[info] " + message;
+        break;
+    }
+    return new_message;
+}
 
 void log_message(SeverityLevel severity, std::string message)
 {
-    
+
     if (log_counter > MAX_FILE_LINES)
     {
 
@@ -161,6 +259,20 @@ void log_message(SeverityLevel severity, std::string message)
         std::this_thread::sleep_for(std::chrono::milliseconds(900));
     }
     log_counter++;
+    // try to send the message to the server
+    while (true)
+    {
+        try
+        {
+            send_log_to_server(prepend_severity(message, severity));
+            break;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr <<"TCP Client is not Connected" <<e.what() << '\n';
+            sleep(3);
+        }
+    }
 
     switch (severity)
     {
@@ -323,7 +435,6 @@ void log_sync()
 
             parse_message(received_message, severityLevel, literal_message);
 
-
             log_message(severityLevel, format_message(literal_message, pair.first));
         }
     }
@@ -332,8 +443,9 @@ void log_sync()
 int main()
 {
     init_logging();
+
     std::map<std::string, std::string> configMap;
-    parseConfigFile("config.txt", configMap);
+    parseConfigFile("/etc/config.txt", configMap);
     std::cout << "listenning.....\n";
     // test_logging();
 

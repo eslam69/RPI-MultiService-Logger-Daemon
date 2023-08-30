@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/math.dir/src/math_lib.cpp.o  -o math  -lMsgQConnect -lrt -lpthread 

@@ -1,0 +1,3 @@
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/build/CMakeFiles/rebuild_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/build/CMakeFiles/edit_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/build/CMakeFiles/math.dir

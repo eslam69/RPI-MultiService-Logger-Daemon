@@ -1,0 +1,11 @@
+[info   ] [0012] [mathApp        ] [2023-08-31 01:49:55.193]  Subtraction operation
+[info   ] [0013] [mathApp        ] [2023-08-31 01:49:55.194]  Operation: 19 - 9 = 10.000000
+[info   ] [0014] [mathApp        ] [2023-08-31 01:49:55.194]  App terminated Successfully!
+[info   ] [0015] [mathApp        ] [2023-08-31 01:49:56.495]  App started, Connected to the logger!
+[info   ] [0016] [mathApp        ] [2023-08-31 01:49:56.495]  Inputs: 19 - 9
+[info   ] [0017] [mathApp        ] [2023-08-31 01:49:56.496]  Subtraction operation
+[info   ] [0018] [mathApp        ] [2023-08-31 01:49:56.496]  Operation: 19 - 9 = 10.000000
+[info   ] [0019] [mathApp        ] [2023-08-31 01:49:56.497]  App terminated Successfully!
+[info   ] [0020] [mathApp        ] [2023-08-31 01:49:57.211]  App started, Connected to the logger!
+[info   ] [0021] [mathApp        ] [2023-08-31 01:49:57.211]  Inputs: 19 - 9
+[info   ] [0022] [mathApp        ] [2023-08-31 01:49:57.212]  Subtraction operation

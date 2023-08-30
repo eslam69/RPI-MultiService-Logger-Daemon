@@ -1,0 +1,3 @@
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/build/CMakeFiles/rebuild_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/build/CMakeFiles/edit_cache.dir
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/build/CMakeFiles/daemon.dir

@@ -1,0 +1,76 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/include/MsgQConnect.hpp
+iostream
+-
+mqueue.h
+-
+cstdlib
+-
+cstring
+-
+thread
+-
+chrono
+-
+
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp
+iostream
+-
+fstream
+-
+string
+-
+map
+-
+iomanip
+-
+chrono
+-
+ctime
+-
+sstream
+-
+thread
+-
+boost/log/attributes.hpp
+-
+boost/log/core.hpp
+-
+boost/log/expressions.hpp
+-
+boost/log/sinks/sync_frontend.hpp
+-
+boost/log/sinks/text_file_backend.hpp
+-
+boost/log/trivial.hpp
+-
+boost/log/utility/setup/common_attributes.hpp
+-
+boost/shared_ptr.hpp
+-
+boost/make_shared.hpp
+-
+boost/thread/thread.hpp
+-
+boost/thread/locks.hpp
+-
+boost/thread/shared_mutex.hpp
+-
+boost/thread/condition_variable.hpp
+-
+boost/thread/lock_guard.hpp
+-
+arpa/inet.h
+-
+sys/socket.h
+-
+../../IPC-Library/include/MsgQConnect.hpp
+/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/IPC-Library/include/MsgQConnect.hpp
+
