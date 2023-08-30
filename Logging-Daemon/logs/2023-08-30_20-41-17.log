@@ -1,0 +1,18 @@
+[info   ] [0001] [mathApp        ] [2023-08-30 20:41:17.960]  App started, Connected to the logger
+[info   ] [0002] [mathApp        ] [2023-08-30 20:41:17.970]  Inputs: 43.000000 + 1.000000
+[info   ] [0003] [mathApp        ] [2023-08-30 20:41:17.970]  Addition operation
+[info   ] [0004] [mathApp        ] [2023-08-30 20:41:17.970]  Operation: 43.000000 + 1.000000 = 44.000000
+[info   ] [0005] [mathApp        ] [2023-08-30 20:41:17.970]  App terminated Successfully!
+[info   ] [0006] [mathApp        ] [2023-08-30 20:41:53.554]  App started, Connected to the logger
+[info   ] [0007] [mathApp        ] [2023-08-30 20:41:53.555]  Inputs: 43.000000 g 1.000000
+[error  ] [0008] [mathApp        ] [2023-08-30 20:41:53.555]  Invalid operation
+[info   ] [0009] [mathApp        ] [2023-08-30 20:42:10.856]  App started, Connected to the logger
+[info   ] [0010] [mathApp        ] [2023-08-30 20:42:10.856]  User requested help
+[info   ] [0011] [mathApp        ] [2023-08-30 20:42:41.828]  App started, Connected to the logger
+[error  ] [0012] [mathApp        ] [2023-08-30 20:42:41.828]  Invalid number of arguments
+[info   ] [0013] [mathApp        ] [2023-08-30 20:42:52.223]  App started, Connected to the logger
+[error  ] [0014] [mathApp        ] [2023-08-30 20:42:52.223]  Invalid number of arguments
+[info   ] [0015] [mathApp        ] [2023-08-30 20:43:04.360]  App started, Connected to the logger
+[info   ] [0016] [mathApp        ] [2023-08-30 20:43:04.360]  Inputs: 1.000000 / 0.000000
+[info   ] [0017] [mathApp        ] [2023-08-30 20:43:04.360]  Division operation
+[fatal  ] [0018] [mathApp        ] [2023-08-30 20:43:04.360]  Division by zero

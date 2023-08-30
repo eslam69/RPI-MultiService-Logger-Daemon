@@ -4,5 +4,6 @@
 
 testSend =  /my_queue
 testSend2 =  /my_queue2
+mathApp = /math_queue
 
 #ipc  =    /ipc_shared_q 

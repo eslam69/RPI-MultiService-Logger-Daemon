@@ -29,7 +29,7 @@
 #include "../../IPC-Library/include/MsgQConnect.hpp"
 
 #define MAX_FILE_LINES 1000
-#define ASYNC 1
+#define ASYNC 0
 
 namespace logging = boost::log;
 namespace sinks = boost::log::sinks;
@@ -51,13 +51,8 @@ void init_logging();
 void parseConfigFile(const std::string &filename, std::map<std::string, std::string> &configMap);
 void printConfigMap(const std::map<std::string, std::string> &configMap);
 void log_message(SeverityLevel severity, std::string message);
-void test_logging();
-void log_async();
-void log_sync();
-
 inline std::string get_timestamp();
 inline std::string format_message(std::string const &s, std::string const &app_name);
-void parse_message(std::string received_message, SeverityLevel &severityLevel, std::string &literal_message);
 
 static std::atomic<int> log_counter(1);
 
@@ -76,12 +71,16 @@ inline std::string get_timestamp()
 // function to return the formatted log message
 inline std::string format_message(std::string const &s, std::string const &app_name)
 {
+    // return "[ " + std::to_string(log_counter++) + " ] " + "[" + get_timestamp() + "] " + s;
 
     std::ostringstream oss;
-
+    // oss << "[" << std::setfill('0') << std::setw(4) << log_counter << "] [" << get_timestamp() << "] " << s;
+    // oss << "[" << std::setfill(' ') << std::setw(15) << app_name << "] "
+    //     << "[" << std::setfill('0') << std::setw(4) << log_counter << "] [" << get_timestamp() << "] " << s;
+    // make it  logcounter appname timestamp message
     oss << "[" << std::setfill('0') << std::setw(4) << log_counter << "] "
-        << "[" << std::setfill(' ') << std::setw(15) << std::left << app_name << "] "
-        << "[" << std::setfill('0') << std::setw(23) << std::left << get_timestamp() << "] " << s;
+        << "[" << app_name << std::setfill(' ') << std::setw(7) << "] "
+        << "[" << get_timestamp() << "] " << s;
 
     return oss.str();
 }
@@ -102,7 +101,7 @@ void init_logging()
     logging::formatter formatter = expr::stream
                                    // << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S.%f")
                                    //    << "%H-%M-%S"
-                                   << "[" << std::setfill(' ') << std::setw(7) << std::left << logging::trivial::severity << "] "
+                                   << " [" << logging::trivial::severity << "] "
                                    << expr::smessage;
     file_sink->set_formatter(formatter);
 
@@ -151,7 +150,7 @@ void printConfigMap(const std::map<std::string, std::string> &configMap)
 
 void log_message(SeverityLevel severity, std::string message)
 {
-    
+
     if (log_counter > MAX_FILE_LINES)
     {
 
@@ -202,52 +201,6 @@ std::map<std::string, std::thread *> receiver_threads;
 // create receiver for each app
 std::map<std::string, MessageQueueReceiver *> receivers;
 
-void parse_message(std::string received_message, SeverityLevel &severityLevel, std::string &literal_message)
-{
-
-    // message is int the form severty level | message
-    // e.g. Error| this is a message
-    // so we need to split the message into severity level and message and strip them
-    // and then log it
-    std::string severity = received_message.substr(0, received_message.find("|"));
-    // strip the severity level from extra spaces
-    severity.erase(0, severity.find_first_not_of(" \t"));
-    severity.erase(severity.find_last_not_of(" \t") + 1);
-
-    literal_message = received_message.substr(received_message.find("|") + 1);
-    std::cout << "severity:" << severity
-              << "message:" << literal_message << std::endl;
-    // check corresponding enum value
-    if (severity == "Trace")
-    {
-        severityLevel = SeverityLevel::trace;
-    }
-    else if (severity == "Debug")
-    {
-        severityLevel = SeverityLevel::debug;
-    }
-    else if (severity == "Info")
-    {
-        severityLevel = SeverityLevel::info;
-    }
-    else if (severity == "Warning")
-    {
-        severityLevel = SeverityLevel::warning;
-    }
-    else if (severity == "Error")
-    {
-        severityLevel = SeverityLevel::error;
-    }
-    else if (severity == "Fatal")
-    {
-        severityLevel = SeverityLevel::fatal;
-    }
-    else
-    {
-        severityLevel = SeverityLevel::info;
-    }
-}
-
 void callback(std::string received_message)
 {
     // log_message(SeverityLevel::info, message(received_message, "testSendd"));
@@ -263,12 +216,8 @@ void callback(std::string received_message)
             break;
         }
     }
-    SeverityLevel severityLevel;
-    std::string literal_message;
-
-    parse_message(received_message, severityLevel, literal_message);
-
-    log_message(severityLevel, format_message(literal_message, app_name));
+    // log the message
+    log_message(SeverityLevel::info, format_message(received_message, app_name));
 }
 
 void log_async()
@@ -288,7 +237,11 @@ void log_async()
         // receive message from each app
         for (auto &pair : receivers)
         {
+            // std::string received_message = pair.second->receiveMessageSynchronous();
             pair.second->receiveMessageAsynchronous(callback, *receiver_threads[pair.first]);
+            // std::cout << "from app: " << pair.first << "\t"
+            //           << "Received message: " << received_message << std::endl;
+            // log_message(SeverityLevel::info, message(received_message, pair.first));
         }
         // join all threaads
         for (auto &pair : receiver_threads)
@@ -305,7 +258,7 @@ void log_async()
 }
 
 void log_sync()
-{
+{   
 
     std::cout << "log sync\n";
     while (true)
@@ -316,15 +269,11 @@ void log_sync()
             std::string received_message = pair.second->receiveMessageSynchronous();
             // std::cout << "from app: " << pair.first << "\t"
             //           << "Received message: " << received_message << std::endl;
-            // log_message(SeverityLevel::info, format_message(received_message, pair.first));
+            log_message(SeverityLevel::info, format_message(received_message, pair.first));
+            
+            
+            // log_message(severityLevel, message(literal_message, pair.first));
 
-            SeverityLevel severityLevel;
-            std::string literal_message;
-
-            parse_message(received_message, severityLevel, literal_message);
-
-
-            log_message(severityLevel, format_message(literal_message, pair.first));
         }
     }
 }
