@@ -1,5 +1,4 @@
-//rm ../logs/*.log && g++ -o daemon daemon.cpp -lrt -lpthread -lboost_log -lboost_log_setup -lboost_system -lboost_thread -DBOOST_ALL_DYN_LINK && ./daemon 
-
+// rm ../logs/*.log ; g++ -o daemon daemon.cpp -lrt -lpthread -lboost_log -lboost_log_setup -lboost_system -lboost_thread -DBOOST_ALL_DYN_LINK && ./daemon 
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,6 +10,7 @@
 #include <sstream>
 #include <thread>
 
+
 #include <boost/log/attributes.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
@@ -20,6 +20,13 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/thread/thread.hpp>
+#include <boost/thread/locks.hpp>
+#include <boost/thread/shared_mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/lock_guard.hpp>
+
+
 
 #define MAX_FILE_LINES 1000
 
@@ -29,7 +36,6 @@ namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
 namespace attrs = boost::log::attributes;
 
-static std::atomic<int> log_counter(1);
 enum class SeverityLevel
 {
     trace,
@@ -39,7 +45,16 @@ enum class SeverityLevel
     error,
     fatal
 };
+
 void init_logging();
+void parseConfigFile(const std::string &filename, std::map<std::string, std::string> &configMap);
+void printConfigMap(const std::map<std::string, std::string> &configMap);
+void log_message(SeverityLevel severity, std::string message);
+inline std::string get_timestamp();
+inline std::string message(std::string const &s);
+
+static std::atomic<int> log_counter(1);
+
 // function to return the current time as a string
 inline std::string get_timestamp()
 {
@@ -72,7 +87,7 @@ void init_logging()
         // keywords::rotation_size = 10,  // Rotation based on line count, not file size
         keywords::rotation_size = 10 * 1024 * 1024,
         keywords::auto_flush = true);
-    boost::shared_ptr<sink_t> sink = boost::make_shared<sink_t>(file_backend);
+    boost::shared_ptr<sink_t> file_sink = boost::make_shared<sink_t>(file_backend);
 
     // Add a formatter to include a timestamp and severity in each log message
     logging::formatter formatter = expr::stream
@@ -80,18 +95,12 @@ void init_logging()
                                    << "%H-%M-%S"
                                    << " [" << logging::trivial::severity << "] "
                                    << expr::smessage;
-    sink->set_formatter(formatter);
-
-    // Limit the sink to 1000 lines before rotating
-    // file_backend->set_file_collector(sinks::file::make_collector(
-    //     keywords::target = "../logs",
-    //     keywords::max_files = 1));
+    file_sink->set_formatter(formatter);
 
     // Add the sink to the logging core
-    logging::core::get()->add_sink(sink);
+    logging::core::get()->add_sink(file_sink);
 
-    // Set the logging filter to log all messages
-    logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);
+
 }
 
 void parseConfigFile(const std::string &filename, std::map<std::string, std::string> &configMap)
@@ -145,7 +154,6 @@ void log_message(SeverityLevel severity, std::string message)
         std::this_thread::sleep_for(std::chrono::milliseconds(900));
     }
     log_counter++;
-  
 
     switch (severity)
     {
@@ -172,17 +180,23 @@ void log_message(SeverityLevel severity, std::string message)
         break;
     }
 }
+
+
+void test_logging()
+{
+    for (int i = 1; i <= MAX_FILE_LINES * 3 + 4; i++)
+    {
+        // BOOST_LOG_TRIVIAL(trace) << message(std::to_string(i));
+        log_message(SeverityLevel::info, message(std::to_string(i)));
+        // sleep(1);
+    }
+}
 int main()
 {
     init_logging();
     std::map<std::string, std::string> configMap;
     parseConfigFile("config.txt", configMap);
     printConfigMap(configMap);
-    for (int i = 1; i <= MAX_FILE_LINES*3 +4; i++)
-    {
-        // BOOST_LOG_TRIVIAL(trace) << message(std::to_string(i));
-        log_message(SeverityLevel::info, message(std::to_string(i)));
-        // sleep(1);
-    }
+    test_logging();
     return 0;
 }
