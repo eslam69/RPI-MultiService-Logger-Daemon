@@ -40,6 +40,8 @@ namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
 namespace attrs = boost::log::attributes;
 
+const char *serverAddress ;
+
 enum class SeverityLevel
 {
     trace,
@@ -203,7 +205,8 @@ void printConfigMap(const std::map<std::string, std::string> &configMap)
 }
 void send_log_to_server(std::string message)
 {
-    Client client("127.0.0.1", 12345);
+    Client client(serverAddress, 12345);
+    
     if (!client.connectToServer())
     {
         // exit(1);
@@ -327,8 +330,8 @@ void parse_message(std::string received_message, SeverityLevel &severityLevel, s
     severity.erase(severity.find_last_not_of(" \t") + 1);
 
     literal_message = received_message.substr(received_message.find("|") + 1);
-    std::cout << "severity:" << severity
-              << "message:" << literal_message << std::endl;
+    // std::cout << "severity:" << severity
+    //           << "message:" << literal_message << std::endl;
     // check corresponding enum value
     if (severity == "Trace")
     {
@@ -440,9 +443,14 @@ void log_sync()
     }
 }
 
-int main()
-{
+int main(int argc, char **argv)
+{   
+    //get server address
+    serverAddress = argv[1];  // "192.168.1.20" or "127.0.0.1"
+    std::cout << "server address: " << serverAddress << std::endl;
+
     init_logging();
+
 
     std::map<std::string, std::string> configMap;
     parseConfigFile("/etc/config.txt", configMap);
