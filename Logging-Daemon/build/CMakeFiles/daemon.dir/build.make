@@ -60,15 +60,15 @@ include CMakeFiles/daemon.dir/flags.make
 CMakeFiles/daemon.dir/src/daemon.cpp.o: CMakeFiles/daemon.dir/flags.make
 CMakeFiles/daemon.dir/src/daemon.cpp.o: ../src/daemon.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/daemon.dir/src/daemon.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/daemon.dir/src/daemon.cpp.o -c "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp"
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/daemon.dir/src/daemon.cpp.o -c "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp"
 
 CMakeFiles/daemon.dir/src/daemon.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/daemon.dir/src/daemon.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp" > CMakeFiles/daemon.dir/src/daemon.cpp.i
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp" > CMakeFiles/daemon.dir/src/daemon.cpp.i
 
 CMakeFiles/daemon.dir/src/daemon.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/daemon.dir/src/daemon.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp" -o CMakeFiles/daemon.dir/src/daemon.cpp.s
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon/src/daemon.cpp" -o CMakeFiles/daemon.dir/src/daemon.cpp.s
 
 # Object files for target daemon
 daemon_OBJECTS = \
@@ -79,6 +79,7 @@ daemon_EXTERNAL_OBJECTS =
 
 daemon: CMakeFiles/daemon.dir/src/daemon.cpp.o
 daemon: CMakeFiles/daemon.dir/build.make
+daemon: /usr/local/lib/libMsgQConnect.so
 daemon: /usr/lib/libboost_log_setup.so.1.80.0
 daemon: /usr/lib/libboost_system.so.1.80.0
 daemon: /usr/lib/libboost_log.so.1.80.0

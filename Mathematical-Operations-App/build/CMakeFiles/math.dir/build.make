@@ -60,15 +60,15 @@ include CMakeFiles/math.dir/flags.make
 CMakeFiles/math.dir/src/math_lib.cpp.o: CMakeFiles/math.dir/flags.make
 CMakeFiles/math.dir/src/math_lib.cpp.o: ../src/math_lib.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/math.dir/src/math_lib.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/math.dir/src/math_lib.cpp.o -c "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp"
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/math.dir/src/math_lib.cpp.o -c "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp"
 
 CMakeFiles/math.dir/src/math_lib.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/math.dir/src/math_lib.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp" > CMakeFiles/math.dir/src/math_lib.cpp.i
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp" > CMakeFiles/math.dir/src/math_lib.cpp.i
 
 CMakeFiles/math.dir/src/math_lib.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/math.dir/src/math_lib.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp" -o CMakeFiles/math.dir/src/math_lib.cpp.s
+	/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/src/math_lib.cpp" -o CMakeFiles/math.dir/src/math_lib.cpp.s
 
 # Object files for target math
 math_OBJECTS = \
@@ -79,6 +79,7 @@ math_EXTERNAL_OBJECTS =
 
 math: CMakeFiles/math.dir/src/math_lib.cpp.o
 math: CMakeFiles/math.dir/build.make
+math: /usr/local/lib/libMsgQConnect.so
 math: CMakeFiles/math.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable math"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/math.dir/link.txt --verbose=$(VERBOSE)

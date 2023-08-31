@@ -1,2 +1,1 @@
-/usr/bin/ar qc libMsgQConnect.a  CMakeFiles/MsgQConnect.dir/src/MsgQConnect.cpp.o
-/usr/bin/ranlib libMsgQConnect.a
+/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++ -fPIC   -shared -Wl,-soname,libMsgQConnect.so -o libMsgQConnect.so CMakeFiles/MsgQConnect.dir/src/MsgQConnect.cpp.o  -lpthread -lrt 

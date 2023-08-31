@@ -18,7 +18,7 @@
 Boost_DIR:PATH=/usr/lib/cmake/Boost-1.80.0
 
 //Path to a file.
-Boost_INCLUDE_DIR:PATH=/usr/include
+Boost_INCLUDE_DIR:PATH=/usr
 
 Boost_LOG_LIBRARY_RELEASE:STRING=/usr/lib/libboost_log.so.1.80.0
 
@@ -228,6 +228,9 @@ LoggingDaemon_BINARY_DIR:STATIC=/home/eslam/embedded linux tasks/RPI-MultiServic
 
 //Value Computed by CMake
 LoggingDaemon_SOURCE_DIR:STATIC=/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Logging-Daemon
+
+//Path to a library.
+MSGQCONNECT_LIB:FILEPATH=/usr/local/lib/libMsgQConnect.so
 
 //The directory containing a CMake configuration file for boost_atomic.
 boost_atomic_DIR:PATH=/usr/lib/cmake/boost_atomic-1.80.0

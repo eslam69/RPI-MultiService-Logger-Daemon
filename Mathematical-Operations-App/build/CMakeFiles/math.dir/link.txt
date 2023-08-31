@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/math.dir/src/math_lib.cpp.o  -o math  -lMsgQConnect -lrt -lpthread 
+/home/eslam/x-tools/aarch64-rpi4-linux-gnu/bin/aarch64-rpi4-linux-gnu-g++     CMakeFiles/math.dir/src/math_lib.cpp.o  -o math   -L"/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/../../IPC-Library/build"  -Wl,-rpath,"/home/eslam/embedded linux tasks/RPI-MultiService-Logger-Daemon/Mathematical-Operations-App/../../IPC-Library/build:/usr/local/lib" /usr/local/lib/libMsgQConnect.so -lrt -lpthread 
