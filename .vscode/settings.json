@@ -71,5 +71,6 @@
         "codecvt": "cpp",
         "coroutine": "cpp",
         "future": "cpp"
-    }
+    },
+    "ros.distro": "noetic"
 }
